@@ -130,16 +130,16 @@ output "vm_private_ips" {
 resource "null_resource" "ansible_inventory" {
   provisioner "local-exec" {
     command = <<EOT
-      echo "[frontend]" > ../ansible/ansible_inventory
-      echo "${azurerm_network_interface.nic[0].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/inventory
-      echo "${azurerm_network_interface.nic[1].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/inventory
-      echo "${azurerm_network_interface.nic[2].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/inventory
+      echo "[frontend]" >> ../ansible/ansible_inventory
+      echo "${azurerm_network_interface.nic[0].ip_configuration[0].private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/ansible_inventory
+      echo "${azurerm_network_interface.nic[1].ip_configuration[0].private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/ansible_inventory
+      echo "${azurerm_network_interface.nic[2].ip_configuration[0].private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/ansible_inventory
       
-      echo "[loadbalancer]" >> ../ansible/inventory
-      echo "${azurerm_network_interface.nic[3].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/inventory
+      echo "[loadbalancer]" >> ../ansible/ansible_inventory
+      echo "${azurerm_network_interface.nic[3].ip_configuration[0].private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/ansible_inventory
 
-      echo "[database]" >> ../ansible/inventory
-      echo "${azurerm_network_interface.nic[4].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/inventory
+      echo "[database]" >> ../ansible/ansible_inventory
+      echo "${azurerm_network_interface.nic[4].ip_configuration[0].private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}" >> ../ansible/ansible_inventory
     EOT
   }
 
