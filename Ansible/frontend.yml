@@ -1,0 +1,46 @@
+---
+- name: Configure Frontend Servers
+  hosts: frontend
+  become: yes
+ 
+  tasks:
+
+    # Rest of your existing tasks
+
+    - name: Install required packages (Nginx, curl, unzip)
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - nginx
+        - curl
+        - unzip
+
+    - name: Disable root login over SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin no'
+        state: present
+
+    - name: Allow password authentication over SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication yes'
+        state: present
+      notify: Restart SSH
+
+    - name: Copy company SSL certificate
+      copy:
+        src: /path/to/company_cert.crt
+        dest: /etc/ssl/certs/company_cert.crt
+        mode: '0644'
+
+    - name: Set MOTD banner
+      copy:
+        content: |
+          Welcome to the Costco server!
+          Unauthorized access is prohibited.
+        dest: /et

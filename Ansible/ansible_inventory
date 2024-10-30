@@ -1,3 +1,8 @@
 [frontend]
+172.191.159.107 ansible_user=azureuser ansible_password=YourSecurePassword123!
+20.185.31.38 ansible_user=azureuser ansible_password=YourSecurePassword123!
+172.171.215.95 ansible_user=azureuser ansible_password=YourSecurePassword123!
 [loadbalancer]
+20.185.186.101 ansible_user=azureuser ansible_password=YourSecurePassword123!
 [database]
+172.191.6.96 ansible_user=azureuser ansible_password=YourSecurePassword123!
