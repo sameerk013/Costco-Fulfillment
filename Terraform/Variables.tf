@@ -1,16 +1,31 @@
+# variables.tf
+
+# Location for all resources
 variable "location" {
-  description = "Azure region for resource deployment"
+  description = "Azure region to deploy resources into"
   type        = string
   default     = "East US"
 }
 
+# Admin username for all VMs
 variable "admin_username" {
-  description = "Admin username for VMs"
+  description = "Admin username for virtual machines"
   type        = string
-  default     = "azureuser"
 }
 
+# Admin password for all VMs
 variable "admin_password" {
-  description = "Admin password for VMs"
+  description = "Admin password for virtual machines"
   type        = string
+  sensitive   = true
+}
+
+# Tags for resources
+variable "resource_tags" {
+  description = "Tags to apply to resources"
+  type        = map(string)
+  default     = {
+    environment = "production"
+    project     = "costco-logistics-fulfillment"
+  }
 }

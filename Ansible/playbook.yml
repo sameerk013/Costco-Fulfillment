@@ -1,0 +1,25 @@
+#Costco LTL Fulfillment Webapp Configuration
+
+- name: Configure all VMs with common settings
+  hosts: all
+  become: true
+  roles:
+    - common
+
+- name: Configure frontend servers
+  hosts: frontend
+  become: true
+  roles:
+    - frontend
+
+- name: Configure load balancer
+  hosts: loadbalancer
+  become: true
+  roles:
+    - loadbalancer
+
+- name: Configure database server
+  hosts: database
+  become: true
+  roles:
+    - database

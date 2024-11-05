@@ -1,0 +1,28 @@
+# haproxy.cfg
+
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000ms
+    timeout client  50000ms
+    timeout server  50000ms
+
+frontend http_front
+    bind *:80
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server vm1 172.191.159.107:80 check
+    server vm2 20.185.31.38:80 check
+    server vm3 172.171.215.95:80 check
