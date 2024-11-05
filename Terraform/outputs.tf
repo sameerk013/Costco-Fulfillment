@@ -1,17 +1,33 @@
-# Output the Ansible Inventory for copy-pasting or reference
-output "ansible_inventory" {
-  value = <<EOF
-[frontend]
-${azurerm_network_interface.nic[0].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}
-${azurerm_network_interface.nic[1].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}
-${azurerm_network_interface.nic[2].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}
+# output.tf
 
-[loadbalancer]
-${azurerm_network_interface.nic[3].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}
+# Output for Public IP addresses of each VM
+output "frontend_vm_public_ips" {
+  value = [for vm in azurerm_linux_virtual_machine.frontend_vm : vm.public_ip_address]
+  description = "Public IPs of the frontend VMs"
+}
 
-[database]
-${azurerm_network_interface.nic[4].ip_configuration.0.private_ip_address} ansible_user=${var.admin_username} ansible_password=${var.admin_password}
-EOF
+output "loadbalancer_vm_public_ip" {
+  value       = azurerm_linux_virtual_machine.loadbalancer_vm.public_ip_address
+  description = "Public IP of the load balancer VM"
+}
 
-  description = "Ansible inventory formatted as a Terraform output"
+output "database_vm_public_ip" {
+  value       = azurerm_linux_virtual_machine.database_vm.public_ip_address
+  description = "Public IP of the database VM"
+}
+
+# Output for VM names
+output "frontend_vm_names" {
+  value       = [for vm in azurerm_linux_virtual_machine.frontend_vm : vm.name]
+  description = "Names of the frontend VMs"
+}
+
+output "loadbalancer_vm_name" {
+  value       = azurerm_linux_virtual_machine.loadbalancer_vm.name
+  description = "Name of the load balancer VM"
+}
+
+output "database_vm_name" {
+  value       = azurerm_linux_virtual_machine.database_vm.name
+  description = "Name of the database VM"
 }

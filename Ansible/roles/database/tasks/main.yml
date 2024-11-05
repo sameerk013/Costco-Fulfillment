@@ -1,0 +1,25 @@
+# Costco Fulfillment Datasbase Server Setup
+
+- name: Install MySQL Server
+  apt:
+    name: mysql-server
+    state: present
+    update_cache: yes
+
+- name: Ensure MySQL is started and enabled
+  service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: Set up a sample database
+  mysql_db:
+    name: sample_costco_db
+    state: present
+
+- name: Create a database user with access to sample_db
+  mysql_user:
+    name: costco_user
+    password: "costco_password123!"
+    priv: "sample_db.*:ALL"
+    state: present

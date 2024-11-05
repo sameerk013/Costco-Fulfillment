@@ -1,0 +1,23 @@
+#Costco Fulfillment Front End Servers
+
+- name: Install Nginx on frontend servers
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Ensure Nginx is started and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Set up a Hello World page for frontend
+  copy:
+    content: |
+      <html>
+      <head><title>Frontend Server</title></head>
+      <body><h1>Hello from Costco Fulfillment Server {{ inventory_hostname }}</h1></body>
+      </html>
+    dest: /var/www/html/index.html
+    mode: '0644'

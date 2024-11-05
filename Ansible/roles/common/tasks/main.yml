@@ -1,0 +1,42 @@
+- name: Configure /etc/hosts entries for all VMs
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    line: "{{ item.ip }} {{ item.hostname }}"
+    state: present
+  loop:
+    - { ip: "172.172.210.141", hostname: "vm1" }
+    - { ip: "172.190.163.232", hostname: "vm2" }
+    - { ip: "172.172.209.87", hostname: "vm3" }
+    - { ip: "40.121.182.122", hostname: "vm4" }
+    - { ip: "172.191.104.100", hostname: "vm5" }
+
+- name: Install required packages (Nginx, curl, unzip)
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - curl
+    - unzip
+
+- name: Disable root login over SSH
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+    state: present
+
+- name: Allow password authentication over SSH
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication yes'
+    state: present
+  notify: Restart SSH
+
+- name: Set MOTD banner
+  ansible.builtin.copy:
+    content: |
+      Welcome to the Costco Fulfillment Server!
+      Unauthorized access is prohibited.
+    dest: /etc/motd

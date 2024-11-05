@@ -1,8 +1,13 @@
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
 [frontend]
-172.191.159.107 ansible_user=azureuser ansible_password=YourSecurePassword123!
-20.185.31.38 ansible_user=azureuser ansible_password=YourSecurePassword123!
-172.171.215.95 ansible_user=azureuser ansible_password=YourSecurePassword123!
+costco-logistics-fulfillment-frontend-vm-1 ansible_host=172.172.210.141 ansible_user=azureuser ansible_password=YourSecurePassword123!
+costco-logistics-fulfillment-frontend-vm-2 ansible_host=172.190.163.232 ansible_user=azureuser ansible_password=YourSecurePassword123!
+costco-logistics-fulfillment-frontend-vm-3 ansible_host=172.172.209.87 ansible_user=azureuser ansible_password=YourSecurePassword123!
+
 [loadbalancer]
-20.185.186.101 ansible_user=azureuser ansible_password=YourSecurePassword123!
+costco-logistics-fulfillment-lb-vm ansible_host=40.121.182.122 ansible_user=azureuser ansible_password=YourSecurePassword123!
+
 [database]
-172.191.6.96 ansible_user=azureuser ansible_password=YourSecurePassword123!
+costco-logistics-fulfillment-db-vm ansible_host=172.191.104.100 ansible_user=azureuser ansible_password=YourSecurePassword123!
