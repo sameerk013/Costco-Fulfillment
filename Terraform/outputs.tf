@@ -1,4 +1,4 @@
-# output.tf
+
 
 # Output for Public IP addresses of each VM
 output "frontend_vm_public_ips" {

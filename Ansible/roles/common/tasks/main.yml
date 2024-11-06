@@ -1,44 +1,40 @@
-- name: Configure servers with dynamic /etc/hosts and settings
-  hosts: all
-  become: true
+#Common Virtual Machine Configurations    
 
-  tasks:
-    - name: Generate /etc/hosts from template
-      ansible.builtin.template:
-        src: hosts.j2
-        dest: /etc/hosts
-        owner: root
-        group: root
-        mode: '0644'
+- name: Generate /etc/hosts from template
+  ansible.builtin.template:
+    src: templates/hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: '0644'
 
-    - name: Install required packages (curl, unzip)
-      ansible.builtin.apt:
-        name: "{{ item }}"
-        state: present
-        update_cache: yes
-      loop:
-        - curl
-        - unzip
+- name: Install required packages (curl, unzip)
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - curl
+    - unzip
 
-    - name: Disable root login over SSH
-      ansible.builtin.lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: '^PermitRootLogin'
-        line: 'PermitRootLogin no'
-        state: present
+- name: Disable root login over SSH
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+    state: present
 
-    - name: Allow password authentication over SSH
-      ansible.builtin.lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: '^PasswordAuthentication'
-        line: 'PasswordAuthentication yes'
-        state: present
-      notify: Restart SSH
+- name: Allow password authentication over SSH
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication yes'
+    state: present
+  notify: Restart SSH
 
-    - name: Set MOTD banner
-      ansible.builtin.copy:
-        content: |
-          Welcome to the Costco Fulfillment Server!
-          Unauthorized access is prohibited.
-        dest: /etc/motd
-
+- name: Set MOTD banner
+  ansible.builtin.copy:
+    content: |
+      Welcome to the Costco Fulfillment Server!
+      Unauthorized access is prohibited.
+    dest: /etc/motd

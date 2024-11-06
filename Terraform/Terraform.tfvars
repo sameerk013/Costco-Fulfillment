@@ -1,4 +1,4 @@
-# terraform.tfvars
+
 
 # Azure region for resources
 location = "East US"
