@@ -77,7 +77,7 @@ resource "azurerm_network_security_group" "public_nsg" {
     destination_address_prefix = "*"
   }
 
-  # SSH Rule for Ansible
+  # SSH Rule to test Ansible
   security_rule {
     name                       = "AllowSSHForAnsible"
     priority                   = 1002
@@ -86,7 +86,7 @@ resource "azurerm_network_security_group" "public_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "*"  # Replace with your Ansible IP
+    source_address_prefix      = "*"  
     destination_address_prefix = "*"
   }
 }
@@ -105,7 +105,7 @@ resource "azurerm_network_security_group" "frontend_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "80"
-    source_address_prefix      = "10.0.1.0/24"  # Public subnet
+    source_address_prefix      = "10.0.1.0/24"  
     destination_address_prefix = "*"
   }
 
@@ -118,7 +118,7 @@ resource "azurerm_network_security_group" "frontend_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "*"  # Replace with your Ansible IP
+    source_address_prefix      = "*"  
     destination_address_prefix = "*"
   }
 }
@@ -137,7 +137,7 @@ resource "azurerm_network_security_group" "database_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3306"
-    source_address_prefix      = "10.0.2.0/24"  # Frontend subnet
+    source_address_prefix      = "10.0.2.0/24"  
     destination_address_prefix = "*"
   }
 
@@ -150,12 +150,10 @@ resource "azurerm_network_security_group" "database_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "*"  # Replace with your Ansible IP
+    source_address_prefix      = "*"  
     destination_address_prefix = "*"
   }
 }
-
-
 
 
 # NSG Associations with Subnets
