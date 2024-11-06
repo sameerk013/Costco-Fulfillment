@@ -80,7 +80,7 @@ resource "azurerm_network_security_group" "public_nsg" {
     destination_address_prefix = "*"
   }
 
-  # SSH Rule to test Ansible
+  # SSH Rule to test Ansible (NP and DEV Only, Not Best Practice)
   security_rule {
     name                       = "AllowSSHForAnsible"
     priority                   = 1002
@@ -112,7 +112,7 @@ resource "azurerm_network_security_group" "frontend_nsg" {
     destination_address_prefix = "*"
   }
 
-  # SSH Rule for Ansible
+  # SSH Rule for Ansible (NP and DEV Only, Not Best Practice)
   security_rule {
     name                       = "AllowSSHForAnsible"
     priority                   = 1002
@@ -144,7 +144,7 @@ resource "azurerm_network_security_group" "database_nsg" {
     destination_address_prefix = "*"
   }
 
-  # SSH Rule for Ansible
+  # SSH Rule for Ansible (NP and DEV Only, Not Best Practice)
   security_rule {
     name                       = "AllowSSHForAnsible"
     priority                   = 1002
