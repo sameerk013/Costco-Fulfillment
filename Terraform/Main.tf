@@ -1,4 +1,4 @@
-#Main Configuration file for Webapp
+#Main Configuration file for the Webapp Assignment
 
 
 # Terraform Block
@@ -108,7 +108,7 @@ resource "azurerm_network_security_group" "frontend_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "80"
-    source_address_prefix      = "10.0.1.0/24"  
+    source_address_prefix      = "*"  #Should only be open for the Load Balancer but having issues with the forwarding
     destination_address_prefix = "*"
   }
 
@@ -175,7 +175,8 @@ resource "azurerm_subnet_network_security_group_association" "database_nsg_assoc
   network_security_group_id = azurerm_network_security_group.database_nsg.id
 }
 
-# Public IPs
+# IP Allocation
+
 resource "azurerm_public_ip" "loadbalancer_public_ip" {
   name                = "costco-logistics-fulfillment-lb-public-ip"
   location            = azurerm_resource_group.costco_logistics_fulfillment_rg.location
