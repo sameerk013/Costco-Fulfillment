@@ -2,9 +2,12 @@
 
 To-DO List:
 
-#Hamid's Recommendation - Instead of using APT and using the Loop - Include the packages being installed one line as in reality we will have hundreds of packages being isntalled instead of just one. 
+#Hamid's Recommendation - Instead of using APT and using the Loop - Include the packages being installed on one line as in reality we will have hundreds of packages being isntalled instead of just one. 
 
 
+
+
+#Best Practice and further modificaations
 
     1 Modularize the Terraform Code so that we promote the scalability and Reusability of the code. 
     2. Secrets should NEVER be in the code itself. Deploy an Azure Key Vault and map the credentials there. 
